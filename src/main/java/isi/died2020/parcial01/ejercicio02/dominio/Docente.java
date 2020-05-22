@@ -14,6 +14,7 @@ public class Docente {
 	private List<Materia> catedras;
 	private List<Inscripcion> inscriptos;
 	private List<Examen> examenes;
+	private Integer maxExamanes;
 	
 	public Docente() {
 		this.id = ID_GENERATOR++;
@@ -38,6 +39,14 @@ public class Docente {
 
 	public String getNombre() {
 		return nombre;
+	}
+	
+	public Integer getMax() {
+		return maxExamanes;
+	}
+	
+	public List<Examen> getExamenes(){
+		return examenes;
 	}
 
 	public void setNombre(String nombre) {

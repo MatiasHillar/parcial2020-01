@@ -29,5 +29,7 @@ public interface MySysAcad {
 	public void registrarNota(Examen e, Integer nota);
 	
 	public List<Examen> topNExamenes(Materia m, Integer n);
+	
+	public Integer cantidadAplazos(Alumno a);
 
 }

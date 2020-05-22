@@ -41,6 +41,10 @@ public class Alumno {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+	public List<Examen> getExamenes(){
+		return examenes;
+	}
 
 	public void addExamen(Examen e) {
 		this.examenes.add(e);

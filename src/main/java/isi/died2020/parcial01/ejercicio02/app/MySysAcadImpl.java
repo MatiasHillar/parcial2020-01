@@ -1,5 +1,6 @@
 package isi.died2020.parcial01.ejercicio02.app;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -11,7 +12,6 @@ import isi.died2020.parcial01.ejercicio02.db.BaseDeDatosExcepcion;
 import isi.died2020.parcial01.ejercicio02.db.ExcepcionNoEsProfesor;
 import isi.died2020.parcial01.ejercicio02.dominio.*;
 import isi.died2020.parcial01.ejercicio02.dominio.Docente.Cargo;
-import utn.frsf.isi.died2020.tp07.modelo.Material;
 
 
 public class MySysAcadImpl implements MySysAcad, Comparator<Examen> {
@@ -59,7 +59,11 @@ public class MySysAcadImpl implements MySysAcad, Comparator<Examen> {
 	}
 
 	private Predicate<Docente> puedeAsignarExamen = 
-			d -> (d.getCargo() == Cargo.PROFESOR);
+			d -> (d.getCargo() == Cargo.PROFESOR &&
+			(d.getExamenes().stream()
+			.filter(e -> e.getFecha().getMonth() == LocalDate.now().getMonth()))
+			.count() < d.getMax());
+			
 	
 	@Override
 	public void inscribirAlumnoExamen(Docente d, Alumno a, Materia m) throws ExcepcionNoEsProfesor, ExcepcionBD {
@@ -101,6 +105,14 @@ public class MySysAcadImpl implements MySysAcad, Comparator<Examen> {
 	}
 	else return ret;
 	}
+
+	@Override
+	public Integer cantidadAplazos(Alumno a) {
+		return (int) a.getExamenes().stream()
+		.filter(e -> e.getNota()<4)
+		.count();
+	}
+	
 
 
 }
