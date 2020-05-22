@@ -2,6 +2,9 @@ package isi.died2020.parcial01.ejercicio02.dominio;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import isi.died2020.parcial01.ejercicio02.dominio.Inscripcion.Estado;
 
 public class Alumno {
 	
@@ -47,6 +50,14 @@ public class Alumno {
 	public void addCursada(Inscripcion e) {
 		this.materiasCursadas.add(e);
 		e.setInscripto(this);
+	}
+	
+	public void promocionar(Materia m) {
+		List<Inscripcion> l = this.materiasCursadas.stream()
+		.filter(t -> t.getMateria() == m)
+		.collect(Collectors.toList());
+		int tam = l.size();
+		l.get(tam).setEstado(Estado.PROMOCIONADO);
 	}
 
 }
